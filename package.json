@@ -1,0 +1,18 @@
+{
+  "name": "Grazac-system_engineering-API",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/slowlybutsteadylearning/Grazac-system_engineering-API.git",
+  "author": "Ibrahim",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.1"
+  }
+}
