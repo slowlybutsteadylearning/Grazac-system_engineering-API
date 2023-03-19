@@ -1,11 +1,12 @@
 const User = require("../model/user.model");
-const Booking = require("../model/service.booking.model")
+const Booking = require("../model/booking.model")
+const Reservation= require("../model/reservation.model")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const createJWT = require("../utils/jwt")
 
 //user sign up
-const userSignUp = async (req, res) =>{
+exports.userSignUp = async (req, res) =>{
     const {first_name, last_name, email, password, phone} = req.body
     try {
         const userExist = await User.findOne({email})
@@ -34,7 +35,7 @@ const userSignUp = async (req, res) =>{
 }
 
 // login
-const userLogin = async(req,res)=>{
+exports.userLogin = async(req,res)=>{
     const {email, password} = req.body
     try {
         const userExistInDb = await User.findOne({email})
@@ -76,7 +77,7 @@ const userLogin = async(req,res)=>{
 
 //book a seat
 
-const userBookSeat = async (req,res) =>{
+exports.userBookSeat = async (req,res) =>{
     const { id } = req.params;
     const {user_id, service_type, seat_number, booking_time}= req.body
     try {
@@ -107,4 +108,74 @@ const userBookSeat = async (req,res) =>{
 }
 
 //edit_booking
-module.exports= {userSignUp, userLogin,userBookSeat}
+
+exports.editBookingSeat = async (req, res) => {
+    const { id } = req.params;
+    const {booking_time} = req.body;
+    try {
+        // check if the booking exists
+        const booking = await Booking.findById(id);
+        if (!booking) {
+            return res.status(404).json({
+                message: "Not booked yet",
+            });
+        }
+        const edit_time = await Booking.findByIdAndUpdate(id, {
+            booking_time
+        }, 
+        { new: true }
+        );
+        return res.status(200).json({
+            message: "Booking time updated successfully",
+            news: edit_time,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something went wrong',
+            error: error.message,
+        });
+    }
+};
+
+// delete booking
+exports.deleteBooking = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // check if the  exists
+        const booking_exist = await News.findById(id);
+        if (!booking_exist) {
+            return res.status(404).json({
+                message: "Booking does not exist",
+            });
+        }
+        const del_booking = await Booking.deleteOne({ _id: id });
+        return res.status(200).json({
+            message: "Booking deleted successfully",
+            news: del_booking,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message,
+        });
+    }
+};
+
+//all reservation
+
+exports.allReservation = async (req, res) =>{
+    try {
+        const users = await Reservation.find();
+        return res.status(200).json({
+            message: users
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            error:error.message
+        })
+    }
+    }
+

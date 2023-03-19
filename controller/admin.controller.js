@@ -1,6 +1,6 @@
 const User = require("../model/user.model")
-const Booking = require("../model/service.booking.model")
-
+const Booking = require("../model/booking.model")
+const Reservation = require("../model/reservation.model")
 
 //All registered users
 const getAllUsers = async (req, res) =>{
@@ -8,7 +8,7 @@ const getAllUsers = async (req, res) =>{
         const users = await User.find();
         return res.status(200).json({
             message: users
-        })
+        });
         
     } catch (error) {
         return res.status(500).json({
@@ -25,7 +25,7 @@ const {service_name, service_type} = req.body
                 message:"All input are required"
             })
         }
-        const newReservation = await Booking.create({
+        const newReservation = await Reservation.create({
             service_name,service_type
         });
 

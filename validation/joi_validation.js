@@ -38,7 +38,21 @@ loginSchema:Joi.object().keys({
         .required(),
     password:Joi.string().required(),
 }),
+
+bookingTimeSchema:Joi.object().keys({
+    user_id:Joi.string(),
+    reservation_id:Joi.string(),
+    booking_time:Joi.string().required(),
+    booking_status:Joi.string().required(),
+    
+})
+
 }
+
+
+
+
+
 module.exports = {
     validateRequest,
     schemas
