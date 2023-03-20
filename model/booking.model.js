@@ -15,9 +15,10 @@ const service_schema = new mongoose.Schema({
     booking_time:{
         type: String,
     },
-    booking_status:{
-        type: String,
-    },
+    seat_number:{
+        type: Number,
+        
+},
 },
 {
     timestamps: true

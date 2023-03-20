@@ -1,6 +1,6 @@
 const User = require("../model/user.model");
 const Booking = require("../model/booking.model")
-const Reservation= require("../model/reservation.model")
+const Reservation= require("../model/reservations.schema")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const createJWT = require("../utils/jwt")
@@ -51,6 +51,7 @@ exports.userLogin = async(req,res)=>{
         })
     }
     const token = await createJWT({
+        role:userExistInDb.role,
         id: userExistInDb._id,
         email: userExistInDb.email,
         firstname: userExistInDb.firstname,
@@ -79,7 +80,7 @@ exports.userLogin = async(req,res)=>{
 
 exports.userBookSeat = async (req,res) =>{
     const { id } = req.params;
-    const {user_id, service_type, seat_number, booking_time}= req.body
+    const {user_id, reservation_id, service_type, booking_time}= req.body
     try {
     const user = await User.findById(id);
     if (!user) {
@@ -87,15 +88,19 @@ exports.userBookSeat = async (req,res) =>{
         message: "User not found",
       });
     }
-
-    const seat_booked = await Booking.findOne({seat_number})
-    if(seat_booked) return res.status(409).json({message:"Seat not available"})
+    const reservation = await Reservation.findById(id);
+    if (!reservation) return res.status(404).json({
+        message:"Reservation not available"
+    });
+    // const seat_booked = await Booking.findOne({seat_number})
+    // if(seat_booked) return res.status(409).json({message:"Seat not available"})
 
     const new_booking = await Booking.create(
         {
+        reservation_id:reservation._id,
         user_id:user._id,
         service_type,
-        seat_number,
+        // seat_number,
         booking_time
     });
     return res.status(201).json({ message:"Seat number successfully booked", new_booking})

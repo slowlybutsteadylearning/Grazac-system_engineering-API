@@ -11,15 +11,6 @@ const reservation_schema= new mongoose.Schema({
         required: true,
         enum:["Reservation", "Business", "Economy"]
     },
-
-    seat_number:{
-        type: String,
-        required: true,
-        unique: true,
-        min: 1, 
-        max: 200
-    },
-    
 })
 
 module.exports=mongoose.model("Reservation", reservation_schema)

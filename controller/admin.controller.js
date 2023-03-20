@@ -1,6 +1,6 @@
 const User = require("../model/user.model")
 const Booking = require("../model/booking.model")
-const Reservation = require("../model/reservation.model")
+const Reservation = require("../model/reservations.schema")
 
 //All registered users
 const getAllUsers = async (req, res) =>{
@@ -24,9 +24,15 @@ const {service_name, service_type} = req.body
             return res.status(403).json({
                 message:"All input are required"
             })
-        }
+        };
+        const reservationExist = await Reservation.findOne({service_name})
+        if (reservationExist) 
+            return res.status(409).json({
+            message:"Reservation exist"
+        });
         const newReservation = await Reservation.create({
-            service_name,service_type
+            service_name,
+            service_type
         });
 
         return res.status(201).json({message:"New reservation successfully uploaded",newReservation})
@@ -39,5 +45,17 @@ const {service_name, service_type} = req.body
     }
 }
 
-
-module.exports = {getAllUsers,uploadReservation}
+// all booking
+const allBooking = async (req,res)=>{
+    try {
+        const bookings = await Booking.find();
+        return res.status(201).json({
+            message: bookings
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error:error.message
+    })
+}
+}
+module.exports = {getAllUsers,uploadReservation, allBooking}
