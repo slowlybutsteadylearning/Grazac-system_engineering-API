@@ -79,28 +79,28 @@ exports.userLogin = async(req,res)=>{
 //book a seat
 
 exports.userBookSeat = async (req,res) =>{
-    const { id } = req.params;
-    const {user_id, reservation_id, service_type, booking_time}= req.body
+    const id = req.params;
+    const {destination, email, service_name, seat_number, booking_time}= req.body
     try {
-    const user = await User.findById(id);
+    const user = await User.findOne({email});
     if (!user) {
       return res.status(404).json({
         message: "User not found",
       });
     }
-    const reservation = await Reservation.findById(id);
+    const reservation = await Reservation.findOne({service_name});
     if (!reservation) return res.status(404).json({
         message:"Reservation not available"
     });
-    // const seat_booked = await Booking.findOne({seat_number})
-    // if(seat_booked) return res.status(409).json({message:"Seat not available"})
+    const seat_booked = await Booking.findOne({seat_number})
+    if(seat_booked) return res.status(409).json({message:"Seat not available"})
 
     const new_booking = await Booking.create(
         {
-        reservation_id:reservation._id,
-        user_id:user._id,
-        service_type,
-        // seat_number,
+        destination,
+        service_name,
+        email,
+        seat_number,
         booking_time
     });
     return res.status(201).json({ message:"Seat number successfully booked", new_booking})

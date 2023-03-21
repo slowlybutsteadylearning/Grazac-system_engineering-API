@@ -12,8 +12,19 @@ const service_schema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Reservation"
     },
+    service_name:{
+        type: String,
+        required: true,
+    },
+    destination:{
+        type: String,
+    },
     booking_time:{
         type: String,
+    },
+    email:{
+        type: String,
+        required: true,
     },
     seat_number:{
         type: Number,

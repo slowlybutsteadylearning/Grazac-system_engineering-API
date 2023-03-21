@@ -3,7 +3,12 @@ const mongoose= require("mongoose")
 const reservation_schema= new mongoose.Schema({
     service_name:{
         type: String,
-        required: true,   
+        required: true, 
+        unique:true,  
+    },
+    train_status: {
+        type: String,
+        required: true,
     },
 
     service_type:{

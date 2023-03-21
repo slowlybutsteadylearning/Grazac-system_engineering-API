@@ -40,10 +40,10 @@ loginSchema:Joi.object().keys({
 }),
 
 bookingSchema:Joi.object().keys({
-    user_id:Joi.string(),
-    reservation_id:Joi.string(),
-    booking_time:Joi.date().iso().greater('now').required(),
-    booking_status:Joi.string().required(),
+    email:Joi.string().required(),
+    service_name:Joi.string().required(),
+    destination:Joi.string().required(),
+    booking_time:Joi.string().required(),
     seat_number:Joi.number().integer().min(1).max(100).required()
 })
 
