@@ -18,7 +18,7 @@ const getAllUsers = async (req, res) =>{
     }
 //uploading of new obeservation for commuter to book
 const uploadReservation = async(req, res) =>{
-const {service_name, service_type} = req.body
+const {service_name, service_type, train_status} = req.body
     try {
         if(!service_name && service_type){
             return res.status(403).json({
@@ -32,7 +32,9 @@ const {service_name, service_type} = req.body
         });
         const newReservation = await Reservation.create({
             service_name,
-            service_type
+            service_type,
+            train_status
+
         });
 
         return res.status(201).json({message:"New reservation successfully uploaded",newReservation})

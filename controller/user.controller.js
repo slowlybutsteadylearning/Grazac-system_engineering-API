@@ -23,9 +23,8 @@ exports.userSignUp = async (req, res) =>{
             });
 
             return res.status(201).json({
-                message:"Account successfully created",
-                data:newUser
-            })
+                message:"Account successfully created"
+       })
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -82,6 +81,7 @@ exports.userBookSeat = async (req,res) =>{
     const id = req.params;
     const {destination, email, service_name, seat_number, booking_time}= req.body
     try {
+
     const user = await User.findOne({email});
     if (!user) {
       return res.status(404).json({
@@ -103,7 +103,7 @@ exports.userBookSeat = async (req,res) =>{
         seat_number,
         booking_time
     });
-    return res.status(201).json({ message:"Seat number successfully booked", new_booking})
+    return res.status(201).json({ message:"Seat number successfully booked"})
 
 } catch (error) {
     return res.status(500).json({
@@ -122,9 +122,10 @@ exports.editBookingSeat = async (req, res) => {
         const booking = await Booking.findById(id);
         if (!booking) {
             return res.status(404).json({
-                message: "Not booked yet",
+                message: "Booking not found",
             });
         }
+        // update booking time
         const edit_time = await Booking.findByIdAndUpdate(id, {
             booking_time
         }, 
