@@ -6,7 +6,7 @@
   "author": "Ibrahim",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
