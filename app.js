@@ -15,7 +15,7 @@ connDb();
 app.use(express.json())
 
 app.get("/" ,(req, res)=>{
-    res.send("<h1>Welcome Home</h1>")
+    res.send("<h1>Welcome Home.</h1>")
 })
 
 app.use("/api/v1",route);
