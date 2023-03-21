@@ -9,8 +9,8 @@ const { validateRequest, schemas } = require("../validation/joi_validation");
 route.post("/signup" , validateRequest(schemas.signupSchema), userSignUp);
 route.post("/login" , validateRequest(schemas.loginSchema), userLogin)
 route.post("/booking", validateRequest(schemas.bookingSchema), authenticate, userBookSeat)
-route.put("/update",authenticate, editBookingSeat)
-route.delete("/delete", authenticate,deleteBooking)
+route.put("/update/:id",authenticate, editBookingSeat)
+route.delete("/delete/:id", authenticate,deleteBooking)
 route.get("/reservation",authenticate, allReservation)
 
 

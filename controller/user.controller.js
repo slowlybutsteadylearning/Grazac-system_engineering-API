@@ -132,7 +132,7 @@ exports.editBookingSeat = async (req, res) => {
         );
         return res.status(200).json({
             message: "Booking time updated successfully",
-            news: edit_time,
+            edit_time,
         });
 
     } catch (error) {
@@ -149,7 +149,7 @@ exports.deleteBooking = async (req, res) => {
 
     try {
         // check if the  exists
-        const booking_exist = await News.findById(id);
+        const booking_exist = await Booking.findById(id);
         if (!booking_exist) {
             return res.status(404).json({
                 message: "Booking does not exist",
@@ -158,7 +158,7 @@ exports.deleteBooking = async (req, res) => {
         const del_booking = await Booking.deleteOne({ _id: id });
         return res.status(200).json({
             message: "Booking deleted successfully",
-            news: del_booking,
+            del_booking,
         });
 
     } catch (error) {
