@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const {userSignUp, userLogin,userBookSeat, editBookingSeat, deleteBooking, allReservation } =require("../controller/user.controller");
+const {userSignUp, userLogin,userBookSeat, editBookingSeat, deleteBooking, allTrain } =require("../controller/user.controller");
 const {authenticate} = require("../middleware/auth");
 
 
@@ -11,7 +11,7 @@ route.post("/login" , validateRequest(schemas.loginSchema), userLogin)
 route.post("/booking", validateRequest(schemas.bookingSchema), authenticate, userBookSeat)
 route.put("/update/:id",authenticate, editBookingSeat)
 route.delete("/delete/:id", authenticate,deleteBooking)
-route.get("/reservation",authenticate, allReservation)
+route.get("/trains",authenticate, allTrain)
 
 
 

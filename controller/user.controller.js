@@ -1,6 +1,6 @@
 const User = require("../model/user.model");
 const Booking = require("../model/booking.model")
-const Reservation= require("../model/reservations.schema")
+const Train= require("../model/trainservice.schema")
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const createJWT = require("../utils/jwt")
@@ -88,9 +88,9 @@ exports.userBookSeat = async (req,res) =>{
         message: "User not found",
       });
     }
-    const reservation = await Reservation.findOne({service_name});
-    if (!reservation) return res.status(404).json({
-        message:"Reservation not available"
+    const train = await Train.findOne({service_name});
+    if (!train) return res.status(404).json({
+        message:"Train not available"
     });
     const seat_booked = await Booking.findOne({seat_number})
     if(seat_booked) return res.status(409).json({message:"Seat not available"})
@@ -169,11 +169,11 @@ exports.deleteBooking = async (req, res) => {
     }
 };
 
-//all reservation
+//all Train
 
-exports.allReservation = async (req, res) =>{
+exports.allTrain = async (req, res) =>{
     try {
-        const users = await Reservation.find();
+        const users = await Train.find();
         return res.status(200).json({
             message: users
         })

@@ -1,6 +1,6 @@
 const User = require("../model/user.model")
 const Booking = require("../model/booking.model")
-const Reservation = require("../model/reservations.schema")
+const Train = require("../model/trainservice.schema")
 
 //All registered users
 const getAllUsers = async (req, res) =>{
@@ -16,8 +16,8 @@ const getAllUsers = async (req, res) =>{
         })
     }
     }
-//uploading of new obeservation for commuter to book
-const uploadReservation = async(req, res) =>{
+//uploading of new reservation for commuter to book
+const uploadTrainService = async(req, res) =>{
 const {service_name, service_type, train_status} = req.body
     try {
         if(!service_name && service_type){
@@ -25,19 +25,19 @@ const {service_name, service_type, train_status} = req.body
                 message:"All input are required"
             })
         };
-        const reservationExist = await Reservation.findOne({service_name})
+        const trainSeviceExist = await Train.findOne({service_name})
         if (reservationExist) 
             return res.status(409).json({
-            message:"Reservation exist"
+            message:"Train exist"
         });
-        const newReservation = await Reservation.create({
+        const newTrainService = await Train.create({
             service_name,
             service_type,
             train_status
 
         });
 
-        return res.status(201).json({message:"New reservation successfully uploaded",newReservation})
+        return res.status(201).json({message:"New Train service successfully uploaded",newTrainService})
         
     } catch (error) {
         console.log(error);
@@ -60,4 +60,4 @@ const allBooking = async (req,res)=>{
     })
 }
 }
-module.exports = {getAllUsers,uploadReservation, allBooking}
+module.exports = {getAllUsers,uploadTrainService, allBooking}

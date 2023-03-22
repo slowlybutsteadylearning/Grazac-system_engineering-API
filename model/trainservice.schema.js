@@ -1,6 +1,6 @@
 const mongoose= require("mongoose")
 
-const reservation_schema= new mongoose.Schema({
+const train_schema= new mongoose.Schema({
     service_name:{
         type: String,
         required: true, 
@@ -18,4 +18,4 @@ const reservation_schema= new mongoose.Schema({
     },
 })
 
-module.exports=mongoose.model("Reservation", reservation_schema)
+module.exports=mongoose.model("Train", train_schema)
