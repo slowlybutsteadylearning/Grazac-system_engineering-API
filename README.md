@@ -2,7 +2,7 @@
 https://dev.to/slowlybutsteadylearning/authorization-in-nodejs-all-you-need-to-know-1bib
 
 # LSRG API PROJECT
-![image](https://previews.123rf.com/images/rubynurbaidi/rubynurbaidi1708/rubynurbaidi170800008/84252223-illustration-of-cute-cartoon-train.jpg)
+![image](https://png.pngtree.com/png-vector/20221108/ourmid/pngtree-cartoon-train-illustration-png-image_6435933.png)
 
 LSRG is a train service provider that commutes people within Lagos State
 region to any part of Lagos. The management thought of switching from the
