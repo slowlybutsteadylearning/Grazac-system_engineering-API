@@ -26,7 +26,7 @@ const {service_name, service_type, train_status} = req.body
             })
         };
         const trainSeviceExist = await Train.findOne({service_name})
-        if (reservationExist) 
+        if (trainSeviceExist) 
             return res.status(409).json({
             message:"Train exist"
         });
